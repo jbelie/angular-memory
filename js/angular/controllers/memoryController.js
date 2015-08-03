@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller("memoryController",function($scope,$routeParams,memoryProvider){
+app.controller("memoryController",function($scope, $routeParams, $location, memoryProvider){
 	/*
 	 * Init var
 	 */
@@ -20,10 +20,15 @@ app.controller("memoryController",function($scope,$routeParams,memoryProvider){
 	 */
 	$scope.duplicate = function(originalCards){
 	
-		var duplicateCards = originalCards.slice(0);
+		var duplicateCards = angular.copy(originalCards, duplicateCards);
 		var allCards = originalCards.concat(duplicateCards);
 		var cards = $scope.shuffle(allCards);
-
+	
+		for(var i=0;i<cards.length;i++){
+			cards[i].flip = false;
+			cards[i].id = i;
+		}
+	
 		return cards;
 	}
 	
@@ -39,20 +44,34 @@ app.controller("memoryController",function($scope,$routeParams,memoryProvider){
 	 var secondSelectCard = false;
 	 $scope.checkCard = function(card){
 		if(firstSelectCard){
-			secondSelectCard = card;
-			if(firstSelectCard.url==secondSelectCard.url){
-				console.log("Same");
-				$scope.unmatchedPairs--;
-				$scope.matchedPairs++;
-			}else{
-				console.log("Not the same");
+			if(!card.flip){
+				secondSelectCard = card;
+				if(firstSelectCard.url==secondSelectCard.url){
+					console.log("Same");
+					$scope.unmatchedPairs--;
+					$scope.matchedPairs++;
+					$scope.checkEndGame();
+				}else{
+					console.log("Not the same");
+				}
+				
+				firstSelectCard = secondSelectCard = false;
+				firstSelectCard.flip = secondSelectCard.flip = false;
 			}
-			
-			firstSelectCard = secondSelectCard = false;
 		}else{
+			card.flip = true;
 			firstSelectCard = card;
 		}
-			
+		
 	 }
+
+	/*
+	 * Check end of game
+	 */
+	 $scope.checkEndGame = function(){
+		if($scope.unmatchedPairs<=0)
+			alert("You win !");
+	 }
+	 
 
 });
