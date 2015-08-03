@@ -12,22 +12,7 @@
 	<!--CONTAINER-->
 	<div class="container">
 		<section id="memory-app">
-			<h1>Memory game</h1>
-			<nav id="menu">
-				Difficulty : 
-				<select>
-					<option value="easy">Easy (6 cards)</option>
-					<option value="medium">Medium (12 cards)</option>
-					<option value="hard">Hard (24 cards)</option>
-				</select>
-			</nav>
-			<div id="memory-game" ng-controller="memoryController">
-				Unmatched pairs : {{unmatchedPairs}}
-				Matched pairs : {{matchedPairs}}
-				<div>
-					<card-decorate  ng-repeat="card in cards track by $index"></card-decorate>
-				</div>
-			</div>
+			<div ng-view></div>
 		</section>
 	</div>
 	
@@ -41,6 +26,7 @@
 
 		<!--App-->
 		<script src="js/angular/app.js"></script>
+		<script src="js/angular/routing.js"></script>
 
 		<!--Controllers-->
 		<script src="js/angular/controllers/memoryController.js"></script>

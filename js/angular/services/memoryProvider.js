@@ -54,9 +54,9 @@ var cards = [
 
 app.service('memoryProvider',function(){
 
-		this.getCards = function(){
-			
-			return cards;
+		this.getCards = function(nbPairs){
+			var cardsWithDifficulty = cards.slice(0,nbPairs);
+			return cardsWithDifficulty;
 		}
 		
 });

@@ -1,12 +1,24 @@
 'use strict';
 
+
 app.controller("memoryController",function($scope, $routeParams, $location, memoryProvider){
+
 	/*
 	 * Init var
 	 */
-	 $scope.unmatchedPairs = 0;
+	 $scope.totalPairs = 0;
 	 $scope.matchedPairs = 0;
-	 
+	 $scope.levels = [
+      {name:'Easy (6 cards)', value:'easy'},
+      {name:'Normal (12 cards)', value:'normal'},
+      {name:'Hard (24 cards)', value:'hard'}
+    ];
+   
+	if(angular.isUndefined($routeParams.level))
+		 $scope.level = $scope.levels[1].value;
+	else
+		 $scope.level = $routeParams.level;
+
 	/*
 	 * Shuffle cards
 	 */
@@ -33,9 +45,22 @@ app.controller("memoryController",function($scope, $routeParams, $location, memo
 	}
 	
 	// Get & shuffle cards
-	var originalCards = memoryProvider.getCards();
+	var nbPairs = 12;
+	switch($scope.level){
+		case "easy":
+			nbPairs = 3;
+		break;
+		case "normal":
+			nbPairs = 6;
+		break;
+		case "easy":
+			nbPairs = 12;
+		break;
+			
+	}
+	var originalCards = memoryProvider.getCards(nbPairs);
 	$scope.cards = $scope.duplicate(originalCards);
-	$scope.unmatchedPairs = originalCards.length;
+	$scope.totalPairs = originalCards.length;
 	
 	/*
 	 * Check cards
@@ -48,7 +73,6 @@ app.controller("memoryController",function($scope, $routeParams, $location, memo
 				secondSelectCard = card;
 				if(firstSelectCard.url==secondSelectCard.url){
 					console.log("Same");
-					$scope.unmatchedPairs--;
 					$scope.matchedPairs++;
 					$scope.checkEndGame();
 				}else{
@@ -69,8 +93,15 @@ app.controller("memoryController",function($scope, $routeParams, $location, memo
 	 * Check end of game
 	 */
 	 $scope.checkEndGame = function(){
-		if($scope.unmatchedPairs<=0)
+		if($scope.matchedPairs>=$scope.totalPairs)
 			alert("You win !");
+	 }
+	 
+	 /*
+	  * Change level
+	  */
+	 $scope.changeLevel = function(){
+		$location.url("/level/"+$scope.level);
 	 }
 	 
 
