@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memory Game || AngularJS - Démo</title>
+  <link href='bower_components/bootstrap/dist/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <link href='css/style.css' rel='stylesheet' type='text/css'>
+</head>
+<body ng-app="memory">
+	
+	<!--CONTAINER-->
+	<div class="container">
+		<section id="memory-app">
+			<h1>Memory game</h1>
+			<nav id="menu">
+				Difficulty : 
+				<select>
+					<option value="easy">Easy (6 cards)</option>
+					<option value="medium">Medium (12 cards)</option>
+					<option value="hard">Hard (24 cards)</option>
+				</select>
+			</nav>
+			<div id="memory-game" ng-controller="memoryController">
+				Unmatched pairs : {{unmatchedPairs}}
+				Matched pairs : {{matchedPairs}}
+				<div>
+					<card-decorate  ng-repeat="card in cards track by $index"></card-decorate>
+				</div>
+			</div>
+		</section>
+	</div>
+	
+	<!--MODAL-->
+	
+
+	<!--JAVASCRIPT-->
+	<section id="javascript">
+		<!--Vendor-->
+		<script src="bower_components/angular/angular.min.js"></script>
+		<script src="bower_components/angular-route/angular-route.min.js"></script>
+
+		<!--App-->
+		<script src="js/angular/app.js"></script>
+
+		<!--Controllers-->
+		<script src="js/angular/controllers/memoryController.js"></script>
+
+		<!--Provider-->
+		<script src="js/angular/services/memoryProvider.js"></script>
+
+		<!--Directives-->
+		<script src="js/angular/directives/directive.js"></script>
+	</section>
+</body>
+</html>

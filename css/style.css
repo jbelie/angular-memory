@@ -1,0 +1,56 @@
+ody{
+	background-color:#E4E4E4;
+	font-family:arial,sans-serif;
+	font-size:14px;
+	color:#333;
+}
+
+h1{
+	color:#FFF;
+	text-align:center;
+	background-color:#52CEB7;
+	font-weight:bold;
+	padding:10px 0;
+	margin:0;
+}
+
+ul{
+	list-style-type:none;
+}
+.bold{
+	font-weight:bold;
+}
+.light-gray{
+	color:#EEE;
+}
+.red{
+	color:red;
+}
+.light-red{
+	color:#D8838D;
+}
+.green{
+	color:#5FEF37;
+}
+
+
+/* Nav */
+#menu{
+	background-color:#74D9C7;
+	color:#666;
+	margin:0px;
+	padding:5px 0;
+	text-align:center;
+}
+#menu ul{
+	margin:0px;
+	padding:5px 0px;
+	text-align:center;
+}
+
+
+/* Memory */
+.card{
+	float:left;
+	margin: 10px 20px 10px 20px;
+}
