@@ -5,12 +5,21 @@
 		ng-change="changeLevel()"
 		ng-model="level"
 		ng-options="level.value as level.name for level in levels"></select>
-	<div class="pull-right">
+	<div id="score" class="pull-right">
 		Pairs : {{matchedPairs}}/{{totalPairs}} 
 	</div>
+	<div class="clearfix"></div>
 </nav>
 <div id="memory-game">
 	<div>
 		<card-decorate  ng-repeat="card in cards track by $index"></card-decorate>
+		<div class="clearfix"></div>
 	</div>
 </div>
+
+<footer id="footer">
+	<div class="pull-left">
+		Pairs : {{matchedPairs}}/{{totalPairs}} 
+	</div>
+	<div class="clearfix"></div>
+</footer>

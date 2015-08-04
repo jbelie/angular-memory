@@ -1,7 +1,7 @@
 'use strict';
 
 
-app.controller("memoryController",function($scope, $routeParams, $location, memoryProvider){
+app.controller("memoryController",function($scope, $routeParams, $location, $timeout, memoryProvider){
 
 	/*
 	 * Init var
@@ -9,7 +9,7 @@ app.controller("memoryController",function($scope, $routeParams, $location, memo
 	 $scope.totalPairs = 0;
 	 $scope.matchedPairs = 0;
 	 $scope.levels = [
-      {name:'Easy (6 cards)', value:'easy'},
+      {name:'Easy (8 cards)', value:'easy'},
       {name:'Normal (12 cards)', value:'normal'},
       {name:'Hard (24 cards)', value:'hard'}
     ];
@@ -38,6 +38,7 @@ app.controller("memoryController",function($scope, $routeParams, $location, memo
 	
 		for(var i=0;i<cards.length;i++){
 			cards[i].flip = false;
+			cards[i].complete = false;
 			cards[i].id = i;
 		}
 	
@@ -48,7 +49,7 @@ app.controller("memoryController",function($scope, $routeParams, $location, memo
 	var nbPairs = 12;
 	switch($scope.level){
 		case "easy":
-			nbPairs = 3;
+			nbPairs = 4;
 		break;
 		case "normal":
 			nbPairs = 6;
@@ -67,24 +68,41 @@ app.controller("memoryController",function($scope, $routeParams, $location, memo
 	 */
 	 var firstSelectCard = false;
 	 var secondSelectCard = false;
+	 var sameCard = false;
 	 $scope.checkCard = function(card){
+		// Second card
 		if(firstSelectCard){
-			if(!card.flip){
+			if(!card.flip && !secondSelectCard){
+				// Check same cards
+				sameCard = false;
 				secondSelectCard = card;
+				secondSelectCard.flip = true;
 				if(firstSelectCard.url==secondSelectCard.url){
-					console.log("Same");
+					sameCard = true;
 					$scope.matchedPairs++;
-					$scope.checkEndGame();
-				}else{
-					console.log("Not the same");
 				}
 				
-				firstSelectCard = secondSelectCard = false;
-				firstSelectCard.flip = secondSelectCard.flip = false;
+				// Opacity for same cards
+				if(sameCard){
+					firstSelectCard.complete = secondSelectCard.complete = true;
+				}
+					
+				//Timeout : flip cards for non complete pairs
+				$timeout(function(){
+					if(!sameCard){
+						firstSelectCard.flip = secondSelectCard.flip = false;
+					}else{		
+						$scope.checkEndGame();
+					}
+					firstSelectCard = secondSelectCard = false;
+				},750);
 			}
 		}else{
-			card.flip = true;
-			firstSelectCard = card;
+			if(!card.flip){
+				// First card	
+				card.flip = true;
+				firstSelectCard = card;
+			}
 		}
 		
 	 }

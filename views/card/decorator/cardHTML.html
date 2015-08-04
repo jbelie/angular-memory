@@ -1,3 +1,12 @@
-<div class="card" ng-click="checkCard(card)">
-	<img src="{{card.url}}" alt="{{card.name}}" />
-</div>
+<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-click="checkCard(card)" >
+	<div class="flip-container" ng-class="{ 'hover': card.flip,'complete': card.complete }">
+		<div class="card flipper">
+			<div class="front">
+				<img src="img/logo-angular.jpg" alt="" class="img-responsive"/>
+			</div>
+			<div class="back">
+				<img src="{{card.url}}" alt="{{card.name}}" class="img-responsive"/>
+			</div>
+		</div><!--card-->
+	</div><!--flip-container-->
+</div><!--col-->
