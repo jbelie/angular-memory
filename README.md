@@ -1,4 +1,4 @@
-# Angular - Memory Game
+# AngularJS - Memory Game
 
 ## Demo
-[http://jbelie.github.io/angular-memory](http://jbelie.github.io/angular-memory "Angular Memory Game")
+<a href="http://jbelie.github.io/angular-memory" target="_blank">jbelie.github.io/angular-memory</a>
